@@ -1,0 +1,29 @@
+<div class="user-list-container">
+  <h2 class="title">User List</h2>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Department</th> <!-- Updated Header -->
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users" class="table-row">
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.departmentName }}</td> <!-- Display Department Name -->
+      <td class="actions">
+        <button class="btn-delete" (click)="deleteUser(user.id!)">Delete</button>
+        <a class="btn-edit" [routerLink]="['/users', user.id]">Edit</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <a routerLink="/users/new" class="btn-add">Add New User</a>
+</div>

@@ -1,0 +1,26 @@
+<div class="form-container">
+  <h2 class="form-title">
+    {{ isEditMode ? 'Edit Department' : 'Create Department' }}
+  </h2>
+
+  <!-- Global Error Message -->
+  <div *ngIf="globalErrorMessage" class="global-error">
+    <p>{{ globalErrorMessage }}</p>
+  </div>
+
+  <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+    <!-- Department Name -->
+    <div class="form-group">
+      <label for="name" class="form-label">Department Name:</label>
+      <input id="name" formControlName="name" class="form-input" />
+      <div *ngIf="departmentForm.get('name')?.touched && departmentForm.get('name')?.invalid" class="error-message">
+        <small *ngIf="departmentForm.get('name')?.hasError('required')">Department name is required.</small>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="departmentForm.invalid" class="form-button">
+      {{ isEditMode ? 'Update Department' : 'Create Department' }}
+    </button>
+  </form>
+</div>
