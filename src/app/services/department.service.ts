@@ -8,7 +8,7 @@ import {BASE_URL} from '../tokens/base-url.token';
   providedIn: 'root',
 })
 export class DepartmentService {
-  private apiUrl = 'api/bo/departments'; // Base URL for departments
+  private apiUrl = 'user/api/bo/departments'; // Base URL for departments
 
   constructor(
     private http: HttpClient,

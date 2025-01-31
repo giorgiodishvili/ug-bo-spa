@@ -11,6 +11,11 @@ import { DepartmentDetailsComponent } from './department-details/department-deta
 import { DepartmentFormComponent } from './department-form/department-form.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BASE_URL} from './tokens/base-url.token';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+// import { ChartsModule } from 'ng2-charts';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { GroupedChartsPipe } from './pipes/grouped-charts.pipe';
 
 @NgModule({
   declarations: [
@@ -27,10 +32,16 @@ import {BASE_URL} from './tokens/base-url.token';
     UserListComponent,
     HttpClientModule,
     DepartmentListComponent,
-    DepartmentFormComponent
+    DepartmentFormComponent,
+    PieChartComponent,
+    DashboardComponent,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts') // ✅ Ensures echarts is loaded properly
+    }),
+    GroupedChartsPipe
   ],
   providers: [
-    { provide: BASE_URL, useValue: 'http://localhost:8080' } // Define your base URL here
+    { provide: BASE_URL, useValue: 'http://localhost:9090' } // Define your base URL here
   ],
   bootstrap: [AppComponent]
 })
