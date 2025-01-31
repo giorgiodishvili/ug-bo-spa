@@ -6,6 +6,7 @@ import { AggregatedDataDTO } from '../../models/aggregated-data-dto';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { CommonModule } from '@angular/common';
 import { GroupedChartsPipe } from '../../pipes/grouped-charts.pipe';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-pie-chart',
@@ -15,13 +16,17 @@ import { GroupedChartsPipe } from '../../pipes/grouped-charts.pipe';
   imports: [
     CommonModule,
     NgxEchartsModule,
-    GroupedChartsPipe
+    GroupedChartsPipe,
+    FormsModule
   ]
 })
 export class PieChartComponent implements OnInit {
   aggregatedData: AggregatedDataDTO[] = [];
   departmentMap: { [key: number]: string } = {};
-  expandedCharts: { [key: string]: boolean } = {}; // Track which charts are expanded
+  expandedCharts: { [key: string]: boolean } = {};
+  searchQuery: string = '';
+  sortOrder: 'asc' | 'desc' = 'desc';
+  selectedDate: string = ''; // ✅ Date picker value
 
   constructor(
     private aggregatedDataService: AggregatedDataService,
@@ -39,7 +44,6 @@ export class PieChartComponent implements OnInit {
     }).subscribe(({ aggregatedData, departments }) => {
       this.departmentMap = {};
 
-      // ✅ Ensure `id` is defined before using it as an index
       departments.forEach(dept => {
         if (dept.id !== undefined) {
           this.departmentMap[dept.id] = dept.name;
@@ -52,5 +56,9 @@ export class PieChartComponent implements OnInit {
 
   toggleChart(updatedAt: string): void {
     this.expandedCharts[updatedAt] = !this.expandedCharts[updatedAt];
+  }
+
+  toggleSort(): void {
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
   }
 }

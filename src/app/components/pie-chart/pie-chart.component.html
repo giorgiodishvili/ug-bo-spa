@@ -1,12 +1,20 @@
+<div class="chart-controls">
+  <input [(ngModel)]="searchQuery" placeholder="Search timestamps..." class="search-input" />
+
+  <input type="date" [(ngModel)]="selectedDate" class="date-picker" />
+
+  <button (click)="toggleSort()" class="sort-btn">
+    Sort by Date: {{ sortOrder === 'asc' ? '🔼 Ascending' : '🔽 Descending' }}
+  </button>
+</div>
+
 <div class="chart-list">
-  <div *ngFor="let chart of aggregatedData | groupedCharts:departmentMap" class="chart-item">
-    <!-- Toggle Button -->
+  <div *ngFor="let chart of aggregatedData | groupedCharts:departmentMap:searchQuery:sortOrder:selectedDate" class="chart-item">
     <button class="toggle-btn" (click)="toggleChart(chart.updatedAt)">
-      {{ chart.updatedAt }}
+      {{ chart.displayDate }} <!-- ✅ Now shows seconds -->
       <span [class]="expandedCharts[chart.updatedAt] ? 'arrow down' : 'arrow right'"></span>
     </button>
 
-    <!-- Pie Chart (Visible when expanded) -->
     <div *ngIf="expandedCharts[chart.updatedAt]" class="chart-container">
       <div echarts [options]="chart.chartOptions" class="echart"></div>
     </div>
